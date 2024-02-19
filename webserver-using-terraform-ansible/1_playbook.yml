@@ -1,0 +1,25 @@
+---
+- name: Install and Start nginx
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Install nginx
+    yum:
+       name: nginx
+       state: present
+       
+  - name: Start nginx
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: Copy file from local to remote
+    copy:
+        src: /source/   
+        dest: /destination
+        mode: 0755
+  
+  - name: Run Bash Script
+    command: ./script-location.sh
